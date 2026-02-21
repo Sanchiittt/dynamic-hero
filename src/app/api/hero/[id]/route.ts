@@ -4,13 +4,14 @@ import { NextResponse } from "next/server";
 // UPDATE hero slide
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
+    const { id } = context.params;
     const body = await req.json();
 
     const slide = await prisma.heroSlide.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title: body.title,
         highlighted: body.highlighted,
@@ -30,7 +31,7 @@ export async function PUT(
     });
 
     return NextResponse.json(slide);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to update hero slide" },
       { status: 500 }
@@ -41,15 +42,17 @@ export async function PUT(
 // DELETE hero slide
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
+    const { id } = context.params;
+
     await prisma.heroSlide.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to delete hero slide" },
       { status: 500 }
