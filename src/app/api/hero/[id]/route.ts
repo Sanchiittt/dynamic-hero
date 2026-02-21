@@ -1,13 +1,17 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+type RouteContext = {
+  params: Record<string, string>;
+};
+
 // UPDATE hero slide
 export async function PUT(
   req: Request,
-  context: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
-    const { id } = context.params;
+    const id = context.params.id;
     const body = await req.json();
 
     const slide = await prisma.heroSlide.update({
@@ -42,10 +46,10 @@ export async function PUT(
 // DELETE hero slide
 export async function DELETE(
   _req: Request,
-  context: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
-    const { id } = context.params;
+    const id = context.params.id;
 
     await prisma.heroSlide.delete({
       where: { id },
