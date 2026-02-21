@@ -59,7 +59,9 @@ export default function AdminPage() {
 
         <tbody>
           {slides.map((slide) => (
-            <tr key={slide.id} className="border-t">
+            <tr key={slide.id}  className={`border-t ${
+    !slide.isActive ? "opacity-50" : ""
+  }`}>
               <td className="p-3">
                 {slide.title}{" "}
                 <span className="text-orange-500">
@@ -68,9 +70,13 @@ export default function AdminPage() {
               </td>
               <td className="p-3">{slide.layout}</td>
               <td className="p-3">{slide.order}</td>
-              <td className="p-3">
-                {slide.isActive ? "✅" : "❌"}
-              </td>
+             <td className="p-3">
+  {slide.isActive ? (
+    <span className="text-green-600 font-medium">Active</span>
+  ) : (
+    <span className="text-gray-400 font-medium">Disabled</span>
+  )}
+</td>
               <td className="p-3 flex gap-3">
                 <Link
                   href={`/admin/edit/${slide.id}`}

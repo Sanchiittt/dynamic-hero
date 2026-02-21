@@ -17,6 +17,10 @@ type HeroSlideProps = {
     ctaPrimaryLink?: string | null;
     ctaSecondaryText?: string | null;
     ctaSecondaryLink?: string | null;
+    textColor?: string | null;
+  highlightColor?: string | null;
+  primaryBtnColor?: string | null;
+  secondaryBtnColor?: string | null;
   };
 };
 
@@ -34,7 +38,10 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
       : slide.fontSize === "LARGE"
       ? "text-6xl"
       : "text-4xl";
-
+    
+      const isCenter = slide.layout === "CENTER";
+      const imageOrder =
+  slide.layout === "RIGHT" ? "md:order-first" : "md:order-last";
   return (
     <div
       className="relative min-h-[80vh] flex items-center bg-cover bg-center"
@@ -42,10 +49,20 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
     >
       <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+     <div
+  className={clsx(
+    "relative container mx-auto px-6 gap-16 items-center",
+    isCenter ? "flex flex-col text-center" : "grid md:grid-cols-2"
+  )}
+>
 
         {/* TEXT */}
-        <div className={clsx("flex flex-col gap-4", alignment)}>
+       <div
+  className={clsx(
+    "flex flex-col gap-4",
+    isCenter ? "items-center text-center" : alignment
+  )}
+>
           {slide.subtitle && (
             <p className="uppercase tracking-widest text-sm text-orange-400">
 
@@ -54,14 +71,15 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
           )}
 
         <h1
-  className={clsx(
-    "font-bold text-white leading-tight",
-    titleSize
-  )}
+  className={clsx("font-bold leading-tight", titleSize)}
+  style={{ color: slide.textColor ?? "#ffffff" }}
 >
   {slide.title}
   {slide.highlighted && (
-    <span className="text-orange-400 ml-3">
+    <span
+  className="ml-3"
+  style={{ color: slide.highlightColor ?? "#f97316" }}
+>
       {slide.highlighted}
     </span>
   )}
@@ -78,8 +96,11 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
           <div className="flex gap-4 mt-4">
             {slide.ctaPrimaryText && (
               <a
-                href={slide.ctaPrimaryLink || "#"}
-                className="bg-orange-500 text-white px-6 py-3 rounded-md"
+                href={slide.ctaPrimaryLink ?? "#"}
+  style={{
+  backgroundColor: slide.primaryBtnColor ?? "#f97316",
+}}
+  className="px-6 py-3 rounded text-white font-medium"
               >
                 {slide.ctaPrimaryText}
               </a>
@@ -87,8 +108,12 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
 
             {slide.ctaSecondaryText && (
               <a
-                href={slide.ctaSecondaryLink || "#"}
-                className="border border-white text-white px-6 py-3 rounded-md"
+                href={slide.ctaSecondaryLink ?? "#"}
+  style={{
+  borderColor: slide.secondaryBtnColor ?? "#ffffff",
+  color: slide.secondaryBtnColor ?? "#ffffff",
+}}
+  className="px-6 py-3 rounded border font-medium"
               >
                 {slide.ctaSecondaryText}
               </a>
@@ -97,19 +122,22 @@ export default function HeroSlide({ slide }: HeroSlideProps) {
         </div>
 
         {/* IMAGE */}
+        
         {slide.imageUrl && (
-          <div className="hidden md:flex justify-center">
-            <Image
-  src={slide.imageUrl}
-  alt="Hero Image"
-  width={420}
-  height={520}
-  priority
-  className="object-cover rounded-none"
-/>
-
-          </div>
-        )}
+  <div
+    className={clsx(
+      "flex justify-center",
+      !isCenter && imageOrder,
+      isCenter && "mt-10"
+    )}
+  >
+    <img
+      src={slide.imageUrl}
+      alt="Hero Image"
+      className="w-[420px] h-auto object-cover rounded"
+    />
+  </div>
+)}
       </div>
     </div>
   );

@@ -6,9 +6,8 @@ import { prisma } from "../../../lib/prisma";
 export async function GET() {
   try {
     const slides = await prisma.heroSlide.findMany({
-      where: { isActive: true },
-      orderBy: { order: "asc" },
-    });
+  orderBy: { order: "asc" },
+});
 
     return NextResponse.json(slides);
   } catch (error) {
@@ -36,6 +35,11 @@ export async function POST(req: Request) {
         imageUrl: body.imageUrl,
         layout: body.layout,
         fontSize: body.fontSize,
+
+        textColor: body.textColor,
+highlightColor: body.highlightColor,
+primaryBtnColor: body.primaryBtnColor,
+secondaryBtnColor: body.secondaryBtnColor,
         ctaPrimaryText: body.ctaPrimaryText,
         ctaPrimaryLink: body.ctaPrimaryLink,
         ctaSecondaryText: body.ctaSecondaryText,

@@ -26,12 +26,19 @@ export async function PUT(
         imageUrl: body.imageUrl,
         layout: body.layout,
         fontSize: body.fontSize,
+        textColor: body.textColor,
+        highlightColor: body.highlightColor,
+        primaryBtnColor: body.primaryBtnColor,
+        secondaryBtnColor: body.secondaryBtnColor,
         ctaPrimaryText: body.ctaPrimaryText,
         ctaPrimaryLink: body.ctaPrimaryLink,
         ctaSecondaryText: body.ctaSecondaryText,
         ctaSecondaryLink: body.ctaSecondaryLink,
         order: Number(body.order),
+        
         isActive: body.isActive,
+        
+        
       },
     });
 

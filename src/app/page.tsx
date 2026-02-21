@@ -58,10 +58,10 @@ async function getHeroSlides() {
 
 export default async function HomePage() {
   const slides = await getHeroSlides();
-
+  const activeSlides = slides.filter((slide: any) => slide.isActive);
   return (
     <main>
-      <HeroSlider slides={slides} />
+      <HeroSlider slides={activeSlides} />
     </main>
   );
 }

@@ -33,6 +33,11 @@ model HeroSlide {
   order        Int       @default(0)
   isActive     Boolean   @default(true)
 
+  textColor        String? @default("#ffffff")
+  highlightColor   String? @default("#f97316")
+  primaryBtnColor  String? @default("#f97316")
+  secondaryBtnColor String? @default("#ffffff")
+
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }

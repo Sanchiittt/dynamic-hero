@@ -52,6 +52,38 @@ export default function NewHeroSlidePage() {
           <option value="LARGE">Large</option>
         </select>
 
+
+
+     <div>
+  <label className="block text-sm font-semibold mb-1">
+    Text Color
+  </label>
+  <input type="color" name="textColor" defaultValue="#ffffff" />
+</div>
+
+<div>
+  <label className="block text-sm font-semibold mb-1">
+    Highlight Text Color
+  </label>
+  <input type="color" name="highlightColor" defaultValue="#f97316" />
+</div>
+
+<div>
+  <label className="block text-sm font-semibold mb-1">
+    Primary Button Color
+  </label>
+  <input type="color" name="primaryBtnColor" defaultValue="#f97316" />
+</div>
+
+<div>
+  <label className="block text-sm font-semibold mb-1">
+    Secondary Button Color
+  </label>
+  <input type="color" name="secondaryBtnColor" defaultValue="#ffffff" />
+</div>
+
+
+
         <input name="ctaPrimaryText" placeholder="Primary CTA Text" className="input" />
         <input name="ctaPrimaryLink" placeholder="Primary CTA Link" className="input" />
 
